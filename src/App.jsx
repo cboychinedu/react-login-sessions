@@ -16,7 +16,7 @@ class App extends Component {
   // Creating the state 
   state = {
     token: null, 
-    isLoggedIn: false
+    isLoggedIn: false,
   }
 
   // When the root component mounts, execute the block of code 
@@ -57,7 +57,7 @@ class App extends Component {
               <Route path="/login" element={ this.state.token ? <Home /> : <Login Tokenstate={this}/> } /> 
               <Route path="/dashboard" element={ this.state.token ? <Dashboard/> : <Login Tokenstate={this}/> } /> 
               <Route path="/preferences" element={ this.state.token ? <Preferences /> : <Login Tokenstate={this}/> } /> 
-              <Route path="*" element={ this.state.token ? <Login Tokenstate={this}/> : <Login Tokenstate={this}/> } /> 
+              <Route path="*" element={ this.state.token ? <Home Tokenstate={this}/> : <Login Tokenstate={this}/> } /> 
           </Routes>
         </BrowserRouter>
       </Fragment>

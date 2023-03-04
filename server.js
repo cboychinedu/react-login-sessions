@@ -10,9 +10,14 @@ app.use(cors());
 
 // Setting the route 
 app.post('/login', async (req, res) => {
+    /* 
+        Verify the user password, and email address on the 
+        server, before sending back a successful, or error message 
+    */
     return res.send({
         token: "123-0935", 
         isLoggedIn: true, 
+        message: "login-message"
     })
 })
 

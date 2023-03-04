@@ -23,6 +23,12 @@ class Login extends Component {
            return data.json(); 
         })
         .then(tokenData => {
+            /** Validate the token data, and check if the "isLoggedIn" value is true 
+             * if the token is not validated, send an error message. 
+             * -------------------------------------------------------
+             * -------------------------------------------------------
+             * 
+            */
 
             // Saving to local storage 
             localStorage.setItem('x-auth-token', JSON.stringify(tokenData.token)); 
