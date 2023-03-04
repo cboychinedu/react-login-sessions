@@ -19,13 +19,21 @@ class App extends Component {
     isLoggedIn: false
   }
 
+  // When the root component mounts, execute the block of code 
+  // below 
   componentDidMount() {
-    // Get token 
+    // Extract the token data, and the login status. 
     const tokenString = localStorage.getItem('x-auth-token') || null; 
-    const userToken = JSON.parse(tokenString); 
+    const loginStatus = localStorage.getItem('isLoggedIn') || null; 
 
-    // 
-    if (userToken) {
+    // Convert the string data into a JSON object
+    const userToken = JSON.parse(tokenString); 
+    const userLoginStatus = JSON.parse(loginStatus); 
+
+    // If the user token is present, save the token 
+    // into the state 
+    if (userToken && userLoginStatus) {
+      // Setting the state to hold the token value 
       this.setState({
         token: userToken, 
         isLoggedIn: true, 
@@ -33,7 +41,7 @@ class App extends Component {
     }
   }
 
-  // Render 
+  // Render the component 
   render() {
     // Return the jsx 
     return(

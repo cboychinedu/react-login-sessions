@@ -1,29 +1,16 @@
 // Importing the necessary modules 
-import React, { Component, Fragment, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, Fragment } from 'react';
 import { Input, Container, Label, Form, Button } from "semantic-ui-react";
-import { AuthContext } from '../AuthContext/AuthContext';
 import withRouter from './WithRouter';
  
 
 // Creating the Login class component 
 class Login extends Component {
-    // 
-    state = {
-        token: null, 
+    // Setting the state 
+    state = {}
 
-    }
-
-    componentDidMount() {
-        // Get token 
-        const tokenString = localStorage.getItem('x-auth-token'); 
-        const userToken = JSON.parse(tokenString); 
-
-      }
-
-    // 
-    static contextType = AuthContext; 
-
+    // Creating a function for connecting to the mongodb backend to 
+    // validate the user
     loginUser = async (credentials) => {
         await fetch('http://localhost:3002/login', {
           method: 'POST',
@@ -39,13 +26,15 @@ class Login extends Component {
 
             // Saving to local storage 
             localStorage.setItem('x-auth-token', JSON.stringify(tokenData.token)); 
-
+            localStorage.setItem('isLoggedIn', JSON.stringify(tokenData.isLoggedIn)); 
+            
+            // Setting the App root component state 
             this.props.Tokenstate.setState({
                 token: tokenData.token, 
                 isLoggedIn: tokenData.isLoggedIn, 
             });
 
-            // Navigate 
+            // Wait for 3secs, and navigate the user to the dashboard page 
             setTimeout(() => {
                 // Redirect the user 
                 this.props.router.navigate('/dashboard'); 
@@ -64,7 +53,7 @@ class Login extends Component {
         let usernameValue = event.target[0].value; 
         let passwordValue = event.target[1].value; 
 
-        // 
+        // Validate the logged in user
         await this.loginUser({usernameValue, passwordValue})
 
     }
@@ -92,7 +81,6 @@ class Login extends Component {
                         </Form.Field>
                     </Form>
                 </Container>
-
             </Fragment>
         )
     }
